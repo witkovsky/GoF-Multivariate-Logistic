@@ -40,6 +40,7 @@ function [sample, Y, U, Ucorr, correction_coef, mu, Sigma] = randML(n, mu, Sigma
 %   mu = [1, 2, 3];
 %   Sigma = [1 0.75 -0.25; 0.75 2 0.1; -0.25 0.1 3];
 %   X = randML(100, mu, Sigma);
+%   mean(X), cov(X)
 
 % (c) Viktor Witkovsky, edited and documented for reproducibility
 % Ver.: 'Updated on 2025-04-16'
