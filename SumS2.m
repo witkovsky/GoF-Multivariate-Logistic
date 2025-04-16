@@ -1,4 +1,4 @@
-function result = SumS2(m, a, N)
+function result = SumS2(m, a, N, M)
 % SUMS2 Efficiently evaluates the infinite sum:
 %     S2(m, a) = sum_{n=1}^{∞} n^2 / (2n + a/sqrt(3))^(m+1)
 %
@@ -8,24 +8,28 @@ function result = SumS2(m, a, N)
 % SYNTAX:
 %   result = SumS2(m, a)
 %   result = SumS2(m, a, N)
+%   result = SumS2(m, a, N, M)
 %
 % INPUT:
 %   m - non-negative integer exponent
 %   a - positive real parameter
 %   N - number of terms in direct sum (default: 1000)
+%   M - number of Bernoulli correction terms (default: 2)
 %
 % OUTPUT:
 %   result - numerical value of the series
 %
 % EXAMPLES:
 %   SumS2(2, 1)
-%   SumS2(4, 0.5, 1000)
+%   SumS2(4, 0.5, 100)
+%   SumS2(4, 0.5, 1000, 0)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: 01-May-2024 16:29:07
 
+%% ALGORITHM
 if nargin < 3, N = 1000; end
-M = 2;  % Number of Euler–Maclaurin correction terms
+if nargin < 4, M = 2; end
 
 % Predefined Bernoulli numbers B_{2k} for k = 1:8
 B = [1/6, -1/30, 1/42, -1/30, 5/66, -691/2730, 7/6, -3617/510];
@@ -39,21 +43,24 @@ n = 1:N-1;
 sum_main = sum(f(n));
 
 %% Step 2: Tail approximation via Euler–Maclaurin
-x = N;
-F_tail = integral(f, x, Inf, 'AbsTol', 1e-12);
-F_corr = -0.5 * f(x);
+if M > 0
+    x = N;
+    F_tail = integral(f, x, Inf, 'AbsTol', 1e-12);
+    F_corr = -0.5 * f(x);
 
-% Derivative corrections using finite differences
-deriv_sum = 0;
-for k = 1:M
-    B2k = B(k);
-    coeff = B2k / factorial(2*k);
-    deriv = nth_derivative(f, x, 2*k - 1);
-    deriv_sum = deriv_sum + coeff * deriv;
+    % Derivative corrections using finite differences
+    deriv_sum = 0;
+    for k = 1:M
+        B2k = B(k);
+        coeff = B2k / factorial(2*k);
+        deriv = nth_derivative(f, x, 2*k - 1);
+        deriv_sum = deriv_sum + coeff * deriv;
+    end
+    % Final result
+    result = sum_main + F_tail + F_corr + deriv_sum;
+else
+    result = sum_main;
 end
-
-%% Final result
-result = sum_main + F_tail + F_corr + deriv_sum;
 end
 
 %% Helper function: finite difference approximation to f^{(n)}(x)
