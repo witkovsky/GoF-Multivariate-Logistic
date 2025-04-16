@@ -1,32 +1,35 @@
-function result = SumS1(m, a, N)
+function result = SumS1(m, a, N, M)
 % SUMS1 Efficiently evaluates the infinite sum:
 %     S1(m, a) = sum_{n=1}^{∞} n / (2n + a/sqrt(3))^(m+1)
 %
 % This version uses the Euler–Maclaurin summation formula for improved
-% accuracy and fast convergence with default parameters N = 1000.
+% accuracy and fast convergence.
 %
 % SYNTAX:
 %   result = SumS1(m, a)
 %   result = SumS1(m, a, N)
+%   result = SumS1(m, a, N, M)
 %
 % INPUT:
 %   m - non-negative integer exponent
 %   a - positive real parameter
 %   N - number of terms in direct sum (default: 1000)
+%   M - number of Bernoulli correction terms (default: 2)
 %
 % OUTPUT:
 %   result - numerical value of the series
 %
 % EXAMPLES:
 %   SumS1(2, 1)
-%   SumS1(4, 0.5, 1000)
-%
+%   SumS1(4, 0.5, 100)
+%   SumS1(4, 0.5, 1000, 0)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: '16-Apr-2025 14:30:43'
 
+%% ALGORITHM
 if nargin < 3, N = 1000; end
-M = 2;
+if nargin < 4, M = 2; end
 
 % Predefined Bernoulli numbers B_{2k} for k = 1:8
 B = [1/6, -1/30, 1/42, -1/30, 5/66, -691/2730, 7/6, -3617/510];
@@ -40,21 +43,24 @@ n = 1:N-1;
 sum_main = sum(f(n));
 
 %% Step 2: Tail approximation via Euler–Maclaurin
-x = N;
-F_tail = integral(f, x, Inf, 'AbsTol', 1e-12);
-F_corr = -0.5 * f(x);
+if M > 0
+    x = N;
+    F_tail = integral(f, x, Inf, 'AbsTol', 1e-12);
+    F_corr = -0.5 * f(x);
 
-% Derivative corrections using finite differences
-deriv_sum = 0;
-for k = 1:M
-    B2k = B(k);
-    coeff = B2k / factorial(2*k);
-    deriv = nth_derivative(f, x, 2*k - 1);
-    deriv_sum = deriv_sum + coeff * deriv;
+    % Derivative corrections using finite differences
+    deriv_sum = 0;
+    for k = 1:M
+        B2k = B(k);
+        coeff = B2k / factorial(2*k);
+        deriv = nth_derivative(f, x, 2*k - 1);
+        deriv_sum = deriv_sum + coeff * deriv;
+    end
+    % Final result
+    result = sum_main + F_tail + F_corr + deriv_sum;
+else
+    result = sum_main;
 end
-
-%% Final result
-result = sum_main + F_tail + F_corr + deriv_sum;
 end
 
 %% Helper function: finite difference approximation to f^{(n)}(x)
