@@ -21,11 +21,12 @@ function result = SumS3(m, a, N, M)
 % EXAMPLES:
 %   SumS3(2, 1)
 %   SumS3(4, 0.5, 100)
-%
+%   SumS3(4, 0.5, 1000, 0)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: 01-May-2024 16:29:07
 
+%% ALGORITHM
 if nargin < 3, N = 1000; end
 if nargin < 4, M = 2; end
 
