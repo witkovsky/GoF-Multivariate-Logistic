@@ -48,7 +48,7 @@ function [R, RINF] = Rstat(data, a, kMax)
 %   data = randML(n, mu, Sigma);
 %   a = 2;
 %   R = Rstat(data, a)
-%
+
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: 01-May-2024 16:29:07
 
