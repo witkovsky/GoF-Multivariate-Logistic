@@ -1,5 +1,5 @@
 function [R, R0, terms] = Rinf_series(a, d, N, M)
-% RINF?SERIES Computes the expected value E[R_inf,a] as given in Theorem 8
+% RINF_SERIES Computes the expected value E[R_inf,a] as given in Theorem 8
 % for the goodness-of-fit test statistic based on the multivariate logistic
 % distribution. 
 %
