@@ -122,7 +122,7 @@ for i = 1:na          % loop over weights a(i)
     for j = 1:nn      % loop over sample sizes n(j)
         for kk = 1:N
             % Display simulation progress (can comment out for speed)
-            fprintf('Sim %d/%d | d = %d\n | a = %.3f | n = %d\n', kk, N, d, a(i), n(j));
+            fprintf('Sim %d/%d | d = %d | a = %.3f | n = %d\n', kk, N, d, a(i), n(j));
 
             % Generate sample from multivariate logistic distribution
             data = randML(n(j), mu, Sigma);
