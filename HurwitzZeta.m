@@ -29,7 +29,7 @@ function z = HurwitzZeta(s, q)
 %   HurwitzZeta(2.5, [0.5, 1, 2])
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
-% Vectorized by ChatGPT, Apr 2025
+% Ver. '17-Apr-2025 09:32:05'
 
 %% Parameters
 N = 100;            % Number of terms in the initial sum
