@@ -1,10 +1,11 @@
-function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N, a, alpha, n, kMax)
+function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N, a, alpha, n, kMax, isStandrdized)
 % RCRITICALVALUES  Computes critical values of the GOF test statistic R
 % by Monte Carlo simulation for given dimensions, weight parameters,
 % significance levels, and sample sizes.
 %
 % SYNTAX:
-%   [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N, a, alpha, n, kMax)
+%   [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = ...
+%                 RCriticalValues(d, N, a, alpha, n, kMax, isStandrdized)
 %
 % INPUT:
 %   d      - dimension of the multivariate logistic distribution (default: 2)
@@ -13,6 +14,7 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha  - vector of significance levels (default: 0.05)
 %   n      - vector of sample sizes (default: 100)
 %   kMax   - truncation level for the I3-series in Rstat (default: 100)
+%   isStandrdized - indicator for standardization of the samples (default: true)
 %
 % OUTPUT:
 %   Rquantile - matrix of critical values for each (a, alpha, n)
@@ -91,7 +93,8 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 % Ver.: '16-Apr-2025 17:20:41'
 
 %% Input handling
-narginchk(0, 6);
+narginchk(0, 7);
+if nargin < 7 || isempty(isStandrdized),  isStandrdized = true;  end
 if nargin < 6 || isempty(kMax),  kMax = 100;  end
 if nargin < 5 || isempty(n),     n = 100;     end
 if nargin < 4 || isempty(alpha), alpha = 0.05; end
@@ -119,16 +122,18 @@ for i = 1:na          % loop over weights a(i)
     for j = 1:nn      % loop over sample sizes n(j)
         for kk = 1:N
             % Display simulation progress (can comment out for speed)
-            fprintf('Sim %d/%d | a = %.3f | n = %d\n', kk, N, a(i), n(j));
+            fprintf('Sim %d/%d | d = %d\n | a = %.3f | n = %d\n', kk, N, d, a(i), n(j));
 
             % Generate sample from multivariate logistic distribution
             data = randML(n(j), mu, Sigma);
 
             % Standardize sample if sample size > 2
-            if n(j) > 2
-                muHat = mean(data);
-                SigmaHat = cov(data);
-                data = (sqrtm(inv(SigmaHat)) * (data - muHat)')';
+            if isStandrdized
+                if n(j) > 2
+                    muHat = mean(data);
+                    SigmaHat = cov(data);
+                    data = (sqrtm(inv(SigmaHat)) * (data - muHat)')';
+                end
             end
 
             % Compute test statistic
