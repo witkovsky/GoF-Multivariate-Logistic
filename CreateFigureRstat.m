@@ -36,4 +36,3 @@ box(axes1,'on');
 hold(axes1,'off');
 % Create legend
 legend(axes1,'show');
-
