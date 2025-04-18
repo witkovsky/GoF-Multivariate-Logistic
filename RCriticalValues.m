@@ -1,11 +1,11 @@
-function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N, a, alpha, n, kMax, isStandrdized)
+function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
 % RCRITICALVALUES  Computes critical values of the GOF test statistic R
 % by Monte Carlo simulation for given dimensions, weight parameters,
 % significance levels, and sample sizes.
 %
 % SYNTAX:
 %   [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = ...
-%                 RCriticalValues(d, N, a, alpha, n, kMax, isStandrdized)
+%                 RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
 %
 % INPUT:
 %   d      - dimension of the multivariate logistic distribution (default: 2)
@@ -14,7 +14,7 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha  - vector of significance levels (default: 0.05)
 %   n      - vector of sample sizes (default: 100)
 %   kMax   - truncation level for the I3-series in Rstat (default: 100)
-%   isStandrdized - indicator for standardization of the samples (default: true)
+%   isStandardized - indicator for standardization of the samples (default: true)
 %
 % OUTPUT:
 %   Rquantile - matrix of critical values for each (a, alpha, n)
@@ -94,7 +94,7 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 
 %% Input handling
 narginchk(0, 7);
-if nargin < 7 || isempty(isStandrdized),  isStandrdized = true;  end
+if nargin < 7 || isempty(isStandardized),  isStandardized = true;  end
 if nargin < 6 || isempty(kMax),  kMax = 100;  end
 if nargin < 5 || isempty(n),     n = 100;     end
 if nargin < 4 || isempty(alpha), alpha = 0.05; end
@@ -128,7 +128,7 @@ for i = 1:na          % loop over weights a(i)
             data = randML(n(j), mu, Sigma);
 
             % Standardize sample if sample size > 2
-            if isStandrdized
+            if isStandardized
                 if n(j) > 2
                     muHat = mean(data);
                     SigmaHat = cov(data);
