@@ -4,17 +4,22 @@
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: '17-Apr-2025 17:20:41'
 
-%% EXAMPLE 2
-%  Simulated values of the test statistic Rstat for dimension d = 2
 clear
 close all
 
-d     = 2;
+%% Set the parameters for simulations
 N     = 10000;
 a     = 2;
-alpha = 0.05;
 n     = 100;
+
 kMax  = 100;
+alpha = 0.05;
+
+%% EXAMPLE 2
+%  Simulated values of the test statistic Rstat for dimension d = 2
+
+% dimension
+d     = 2;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -44,50 +49,17 @@ save RSTAT_d2_a2_n100
  
 data1 = RSTAT_d2_a2_n100_Std;
 data2 = RSTAT_d2_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=2 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=2 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 2, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d2_a2_n100.fig')
-close(gcf)
+% close(gcf)
 
 %% EXAMPLE 3
 %  Simulated values of the test statistic Rstat for dimension d = 3
 clear
 close all
 
+% dimension
 d     = 3;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -117,50 +89,17 @@ save RSTAT_d3_a2_n100
  
 data1 = RSTAT_d3_a2_n100_Std;
 data2 = RSTAT_d3_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=3 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=3 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 3, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d3_a2_n100.fig')
-close(gcf)
+% close(gcf)
 
 %% EXAMPLE 4
 %  Simulated values of the test statistic Rstat for dimension d = 4
 clear
 close all
 
+% dimension
 d     = 4;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -190,50 +129,17 @@ save RSTAT_d4_a2_n100
  
 data1 = RSTAT_d4_a2_n100_Std;
 data2 = RSTAT_d4_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=4 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=4 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 4, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d4_a2_n100.fig')
-close(gcf)
+% close(gcf)
 
 %% EXAMPLE 5
 %  Simulated values of the test statistic Rstat for dimension d = 5
 clear
 close all
 
+% dimension
 d     = 5;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -263,50 +169,17 @@ save RSTAT_d5_a2_n100
  
 data1 = RSTAT_d5_a2_n100_Std;
 data2 = RSTAT_d5_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=5 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=5 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 5, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d5_a2_n100.fig')
-close(gcf)
+% close(gcf)
 
 %% EXAMPLE 6
 %  Simulated values of the test statistic Rstat for dimension d = 6
 clear
 close all
 
+% dimension
 d     = 6;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -336,49 +209,17 @@ save RSTAT_d6_a2_n100
  
 data1 = RSTAT_d6_a2_n100_Std;
 data2 = RSTAT_d6_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
+% close(gcf)
 
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=6 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=6 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 6, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d6_a2_n100.fig')
-close(gcf)
 %% EXAMPLE 7
 %  Simulated values of the test statistic Rstat for dimension d = 7
 clear
 close all
 
+% dimension
 d     = 7;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -408,49 +249,17 @@ save RSTAT_d7_a2_n100
  
 data1 = RSTAT_d7_a2_n100_Std;
 data2 = RSTAT_d7_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
+% close(gcf)
 
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=7 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=7 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 7, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d7_a2_n100.fig')
-close(gcf)
 %% EXAMPLE 8
 %  Simulated values of the test statistic Rstat for dimension d = 8
 clear
 close all
 
+% dimension
 d     = 8;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -480,50 +289,17 @@ save RSTAT_d8_a2_n100
  
 data1 = RSTAT_d8_a2_n100_Std;
 data2 = RSTAT_d8_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=8 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=8 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 8, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d8_a2_n100.fig')
-close(gcf)
+% close(gcf)
 
 %% EXAMPLE 9
 %  Simulated values of the test statistic Rstat for dimension d = 10
 clear
 close all
 
+% dimension
 d     = 9;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -553,50 +329,17 @@ save RSTAT_d9_a2_n100
  
 data1 = RSTAT_d9_a2_n100_Std;
 data2 = RSTAT_d9_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=9 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=9 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 9, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d9_a2_n100.fig')
-close(gcf)
+% close(gcf)
 
 %% EXAMPLE 10
 %  Simulated values of the test statistic Rstat for dimension d = 10
 clear
 close all
 
+% dimension
 d     = 10;
-N     = 10000;
-a     = 2;
-alpha = 0.05;
-n     = 100;
-kMax  = 100;
 
 % Rsrat calculated from standardized values Z = \ha{Sigma}^{-1/2}(X-\ha{mu})
 
@@ -626,35 +369,6 @@ save RSTAT_d10_a2_n100
  
 data1 = RSTAT_d10_a2_n100_Std;
 data2 = RSTAT_d10_a2_n100_nonStd;
+CreateFigureRstat(data1, data2, d, a, n)
 
-figure
-
-% Create axes
-axes1 = axes;
-hold(axes1,'on');
-
-% Create histogram
-histogram(data1,'DisplayName','Rstat d=10 a=2 n=100 Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create histogram
-histogram(data2,'DisplayName','Rstat d=10 a=2 n=100 non-Standardized',...
-    'Normalization','pdf',...
-    'BinMethod','auto');
-
-% Create ylabel
-ylabel('PDF');
-
-% Create xlabel
-xlabel('Rstat');
-
-% Create title
-title('Rstat with and without standardization, d = 10, a = 2, n = 100');
-
-box(axes1,'on');
-hold(axes1,'off');
-legend(axes1,'show');
-
-savefig('RSTAT_d10_a2_n100.fig')
-close(gcf)
+% close(gcf)
