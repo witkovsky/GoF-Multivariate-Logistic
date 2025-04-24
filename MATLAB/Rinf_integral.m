@@ -50,10 +50,13 @@ end
 %% Define auxiliary functions
 sqrt3 = sqrt(3);
 f_r = @(r) sqrt3 .* r ./ sinh(sqrt3 .* r);
-f_prime = @(r) sqrt3 .* (sinh(sqrt3 .* r) - sqrt3 .* r .* cosh(sqrt3 .* r)) ./ sinh(sqrt3 .* r).^2;
+
+f_prime = @(r) sqrt3 ./ sinh(sqrt3 .* r) - (3 .* r .* cosh(sqrt3 .* r)) ./ sinh(sqrt3 .* r).^2;
+
 f_double_prime = @(r) ...
-    (3 .* (2 .* sqrt3 .* r .* sinh(sqrt3 .* r) .* cosh(sqrt3 .* r) ...
-    - sinh(sqrt3 .* r).^2 - (sqrt3 .* r).^2 .* cosh(sqrt3 .* r).^2)) ./ sinh(sqrt3 .* r).^3;
+    (6 .* sqrt3 .* r .* cosh(sqrt3 .* r).^2) ./ sinh(sqrt3 .* r).^3 ...
+    - (3 .* sqrt3 .* r) ./ sinh(sqrt3 .* r) ...
+    - (6 .* cosh(sqrt3 .* r)) ./ sinh(sqrt3 .* r).^2;
 
 %% Define safe integrand to avoid NaNs for large r
 integrand = @(r) arrayfun(@(x) ...
