@@ -75,11 +75,13 @@ if nargin < 4 || isempty(isStandardized), isStandardized = true; end
 
 [n, d] = size(data);
 
-%% Standardize data if isStandardized = true
+%% Standardize data if isStandardized = true and n > d
 if isStandardized
-    muHat = mean(data);
-    SigmaHat = cov(data);
-    data = (sqrtm(inv(SigmaHat)) * (data - muHat)')';
+    if n > d
+        muHat = mean(data);
+        SigmaHat = cov(data);
+        data = (sqrtm(inv(SigmaHat)) * (data - muHat)')';
+    end
 end
 
 %% Compute integrals
