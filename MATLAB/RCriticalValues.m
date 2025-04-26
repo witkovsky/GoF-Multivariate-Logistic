@@ -1,10 +1,11 @@
-function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
+function [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = ...
+    RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
 % RCRITICALVALUES  Computes critical values of the GOF test statistic R
 % by Monte Carlo simulation for given dimensions, weight parameters,
 % significance levels, and sample sizes.
 %
 % SYNTAX:
-%   [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = ...
+%   [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = ...
 %                 RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
 %
 % INPUT:
@@ -17,9 +18,9 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   isStandardized - indicator for standardization of the samples (default: true)
 %
 % OUTPUT:
-%   Rquantile - matrix of critical values for each (a, alpha, n)
-%   Rmean     - estimated mean of R statistics for each (a, n)
-%   TT        - simulated test statistic values (na x nn x N)
+%   Rstat_quantile - matrix of critical values for each (a, alpha, n)
+%   Rstat_mean     - estimated mean of R statistics for each (a, n)
+%   Rstat_values   - simulated test statistic values (na x nn x N)
 %
 % EXAMPLE 1: (Small simulation)
 %   d = 2; 
@@ -28,9 +29,9 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha = [0.05 0.01]; 
 %   n = [50 100]; 
 %   kMax = 100;
-%   [Rquantile, Rmean] = RCriticalValues(d, N, a, alpha, n, kMax);
-%   disp(Rmean) 
-%   disp(Rquantile)
+%   [Rstat_quantile, Rstat_mean] = RCriticalValues(d, N, a, alpha, n, kMax);
+%   disp(Rstat_mean) 
+%   disp(Rstat_quantile)
 %
 % EXAMPLE 2: Bivariate case
 %   d     = 2;
@@ -39,9 +40,9 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha = 0.05;
 %   n     = 100;
 %   kMax  = 100;
-%   [Rquantile,Rmean,d,N,a,alpha,n,kMax,TT] = RCriticalValues(d,N,a,alpha,n,kMax);
-%   disp(Rmean) 
-%   disp(Rquantile)
+%   [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   disp(Rstat_mean) 
+%   disp(Rstat_quantile)
 %
 % EXAMPLE 3: Trivariate case
 %   d     = 3;
@@ -50,9 +51,9 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha = 0.05;
 %   n     = 100;
 %   kMax  = 100;
-%   [Rquantile,Rmean,d,N,a,alpha,n,kMax,TT] = RCriticalValues(d,N,a,alpha,n,kMax);
-%   disp(Rmean) 
-%   disp(Rquantile)
+%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   disp(Rstat_mean) 
+%   disp(Rstat_quantile)
 %
 % EXAMPLE 4: 4-dimensional case
 %   d     = 4;
@@ -61,9 +62,9 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha = 0.05;
 %   n     = 100;
 %   kMax  = 100;
-%   [Rquantile,Rmean,d,N,a,alpha,n,kMax,TT] = RCriticalValues(d,N,a,alpha,n,kMax);
-%   disp(Rmean) 
-%   disp(Rquantile)
+%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   disp(Rstat_mean) 
+%   disp(Rstat_quantile)
 % 
 % EXAMPLE 5 (Table 1 from the Popović, Mijanović, Witkovský (2025))
 %   rng("default")
@@ -73,9 +74,9 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha = 0.05;
 %   n     = [50 100];
 %   kMax  = 100;
-%   [Rquantile,Rmean,d,N,a,alpha,n,kMax,TT] = RCriticalValues(d,N,a,alpha,n,kMax);
-%   disp(Rmean) 
-%   disp(Rquantile)
+%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   disp(Rstat_mean) 
+%   disp(Rstat_quantile)
 % 
 % EXAMPLE 6 (Related to Table 2 from the Popović, Mijanović, Witkovský (2025))
 %   rng("default")
@@ -85,12 +86,12 @@ function [Rquantile, Rmean, d, N, a, alpha, n, kMax, TT] = RCriticalValues(d, N,
 %   alpha = 0.05;
 %   n     = [50 100];
 %   kMax  = 100;
-%   [Rquantile,Rmean,d,N,a,alpha,n,kMax,TT] = RCriticalValues(d,N,a,alpha,n,kMax);
-%   disp(Rmean) 
-%   disp(Rquantile)
+%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   disp(Rstat_mean) 
+%   disp(Rstat_quantile)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
-% Ver.: '16-Apr-2025 17:20:41'
+% Ver.:  '26-Apr-2025 10:02:24'
 
 %% Input handling
 narginchk(0, 7);
@@ -110,9 +111,9 @@ na     = length(a);    % number of weight parameters
 nalpha = length(alpha);% number of significance levels
 nn     = length(n);    % number of sample sizes
 
-Rquantile = zeros(na, nalpha, nn);   % critical values
-Rmean     = zeros(na, nn);           % mean of R stats
-TT        = zeros(na, nn, N);        % full simulation data
+Rstat_quantile = zeros(na, nalpha, nn);   % critical values
+Rstat_mean     = zeros(na, nn);           % mean of R stats
+Rstat_values   = zeros(na, nn, N);        % full simulation data
 
 mu    = zeros(1, d);       % mean vector
 Sigma = eye(d);            % identity covariance matrix
@@ -127,29 +128,20 @@ for i = 1:na          % loop over weights a(i)
             % Generate sample from multivariate logistic distribution
             data = randML(n(j), mu, Sigma);
 
-            % Standardize sample if sample size > 2
-            if isStandardized
-                if n(j) > 2
-                    muHat = mean(data);
-                    SigmaHat = cov(data);
-                    data = (sqrtm(inv(SigmaHat)) * (data - muHat)')';
-                end
-            end
-
             % Compute test statistic
-            TT(i, j, kk) = Rstat(data, a(i), kMax);
+            Rstat_values(i, j, kk) = Rstat(data, a(i), kMax, isStandardized);
         end
 
         % Sort and store statistics
-        T_sorted = sort(TT(i, j, :));
-        TT(i, j, :) = T_sorted;
+        Rstat_sorted = sort(Rstat_values(i, j, :));
+        Rstat_values(i, j, :) = Rstat_sorted;
 
         % Estimate expected value of R-stat
-        Rmean(i, j) = mean(T_sorted);
+        Rstat_mean(i, j) = mean(Rstat_sorted);
 
         % Estimate quantiles for all specified significance levels
         for k = 1:nalpha
-            Rquantile(i, k, j) = T_sorted(ceil(N * (1 - alpha(k))));
+            Rstat_quantile(i, k, j) = Rstat_sorted(ceil(N * (1 - alpha(k))));
         end
     end
 end
