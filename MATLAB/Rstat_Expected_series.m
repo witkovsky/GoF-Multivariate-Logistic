@@ -45,6 +45,7 @@ if a <= 0
 end
 
 %% Constants
+sqrt3 = sqrt(3);
 pi_d2 = pi^(d/2);
 gamma_d2 = gamma(d/2);
 
@@ -62,7 +63,7 @@ IC_d_plus2 = Integral_IC(d+2, a, method, upperLimit);
 IC_d_plus1 = Integral_IC(d+1, a, method, upperLimit);
 
 %% Assemble the expression according to Theorem 8
-sqrt3 = sqrt(3);
+
 prefactor = (2 * pi_d2 * gamma(d)) / (gamma_d2 * a^d);
 
 sum_terms = (15*d + 93)/10 * IA_d_plus1 ...
