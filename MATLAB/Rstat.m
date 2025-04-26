@@ -33,7 +33,8 @@ function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %   a = 2;
 %   kMax = 100;
 %   isStandardized = true;
-%   Rna = Rstat(X, a, kMax, isStandardized)
+%   [Rna, Z] = Rstat(X, a, kMax, isStandardized);
+%   disp(Rna)
 %
 %   %% Example 2: Bivariate case (non-standardized)
 %   rng(1)
@@ -44,7 +45,8 @@ function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %   a = 2;
 %   kMax = 100;
 %   isStandardized = false;
-%   Rna = Rstat(X, a, kMax, isStandardized)
+%   [Rna, Z] = Rstat(X, a, kMax, isStandardized);
+%   disp(Rna)
 %
 %   %% Example 3: Trivariate case (standardized)
 %   n = 100;
@@ -52,7 +54,8 @@ function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %   Sigma = [1 0.9 0.1; 0.9 1 0.5; 0.1 0.5 1];
 %   X = randML(n, mu, Sigma);
 %   a = 2;
-%   Rna =  Rstat(X, a)
+%   [Rna, Z] = Rstat(X, a);
+%   disp(Rna)
 %
 %   %% Example 4: 4-dimensional case (standardized)
 %   n = 100;
@@ -63,7 +66,8 @@ function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %            0 0 0 2];
 %   X = randML(n, mu, Sigma);
 %   a = 2;
-%   Rna = Rstat(X, a)
+%   [Rna, Z] = Rstat(X, a);
+%   disp(Rna)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: 26-Apr-2025 09:41:42
