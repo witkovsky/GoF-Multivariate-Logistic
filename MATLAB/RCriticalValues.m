@@ -1,16 +1,16 @@
-function [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = ...
-    RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
+function [Rstat_quantile, Rstat_mean, Rstat_values] = ...
+    RCriticalValues(N, d, a, alpha, n, kMax, isStandardized)
 % RCRITICALVALUES  Computes critical values of the GOF test statistic R
 % by Monte Carlo simulation for given dimensions, weight parameters,
 % significance levels, and sample sizes.
 %
 % SYNTAX:
-%   [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = ...
-%                 RCriticalValues(d, N, a, alpha, n, kMax, isStandardized)
+%   [Rstat_quantile, Rstat_mean, Rstat_values] = ...
+%          RCriticalValues(N, d, a, alpha, n, kMax, isStandardized)
 %
 % INPUT:
-%   d      - dimension of the multivariate logistic distribution (default: 2)
 %   N      - number of Monte Carlo simulations (default: 1000)
+%   d      - dimension of the multivariate logistic distribution (default: 2)
 %   a      - vector of weight parameters for the test statistic (default: 2)
 %   alpha  - vector of significance levels (default: 0.05)
 %   n      - vector of sample sizes (default: 100)
@@ -23,70 +23,72 @@ function [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = .
 %   Rstat_values   - simulated test statistic values (na x nn x N)
 %
 % EXAMPLE 1: (Small simulation)
-%   d = 2; 
 %   N = 100; 
+%   d = 2; 
 %   a = [1 2];  
 %   alpha = [0.05 0.01]; 
 %   n = [50 100]; 
 %   kMax = 100;
-%   [Rstat_quantile, Rstat_mean] = RCriticalValues(d, N, a, alpha, n, kMax);
+%   isStandardized = true;
+%   [Rstat_quantile,Rstat_mean,Rstat_values] = ...
+%          RCriticalValues(N, d, a, alpha, n, kMax, isStandardized);
 %   disp(Rstat_mean) 
 %   disp(Rstat_quantile)
 %
 % EXAMPLE 2: Bivariate case
-%   d     = 2;
 %   N     = 1000;
+%   d     = 2;
 %   a     = 2;
 %   alpha = 0.05;
 %   n     = 100;
 %   kMax  = 100;
-%   [Rstat_quantile, Rstat_mean, d, N, a, alpha, n, kMax, Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   [Rstat_quantile, Rstat_mean, Rstat_values] = RCriticalValues(N,d,a,alpha,n,kMax);
 %   disp(Rstat_mean) 
 %   disp(Rstat_quantile)
 %
 % EXAMPLE 3: Trivariate case
-%   d     = 3;
 %   N     = 1000;
+%   d     = 3;
 %   a     = 2;
 %   alpha = 0.05;
 %   n     = 100;
 %   kMax  = 100;
-%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   [Rstat_quantile,Rstat_mean,Rstat_values] = RCriticalValues(N,d,a,alpha,n,kMax);
 %   disp(Rstat_mean) 
 %   disp(Rstat_quantile)
 %
 % EXAMPLE 4: 4-dimensional case
-%   d     = 4;
 %   N     = 1000;
+%   d     = 4;
 %   a     = 2;
 %   alpha = 0.05;
 %   n     = 100;
 %   kMax  = 100;
-%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   [Rstat_quantile,Rstat_mean,Rstat_values] = RCriticalValues(N,d,a,alpha,n,kMax);
 %   disp(Rstat_mean) 
 %   disp(Rstat_quantile)
 % 
 % EXAMPLE 5 (Table 1 from the Popović, Mijanović, Witkovský (2025))
 %   rng("default")
-%   d     = 2;
 %   N     = 10000;
+%   d     = 2;
 %   a     = [0.5 1 1.5 2 2.5 3 3.5 5];
 %   alpha = 0.05;
 %   n     = [50 100];
 %   kMax  = 100;
-%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   [Rstat_quantile,Rstat_mean,Rstat_values] = RCriticalValues(N,d,a,alpha,n,kMax);
 %   disp(Rstat_mean) 
 %   disp(Rstat_quantile)
 % 
 % EXAMPLE 6 (Related to Table 2 from the Popović, Mijanović, Witkovský (2025))
 %   rng("default")
-%   d     = 3;
 %   N     = 10000;
+%   d     = 3;
 %   a     = [0.5 1 1.5 2 2.5 3 3.5 5];
 %   alpha = 0.05;
 %   n     = [50 100];
 %   kMax  = 100;
-%   [Rstat_quantile,Rstat_mean,d,N,a,alpha,n,kMax,Rstat_values] = RCriticalValues(d,N,a,alpha,n,kMax);
+%   [Rstat_quantile,Rstat_mean,Rstat_values] = RCriticalValues(N,d,a,alpha,n,kMax);
 %   disp(Rstat_mean) 
 %   disp(Rstat_quantile)
 
@@ -100,8 +102,8 @@ if nargin < 6 || isempty(kMax),  kMax = 100;  end
 if nargin < 5 || isempty(n),     n = 100;     end
 if nargin < 4 || isempty(alpha), alpha = 0.05; end
 if nargin < 3 || isempty(a),     a = 2;        end
-if nargin < 2 || isempty(N),     N = 1000;     end
-if nargin < 1 || isempty(d),     d = 2;        end
+if nargin < 2 || isempty(d),     d = 2;        end
+if nargin < 1 || isempty(N),     N = 1000;     end
 
 %% Preprocessing and initialization
 a      = a(:);         % ensure column vector
