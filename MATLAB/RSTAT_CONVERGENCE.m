@@ -30,7 +30,7 @@ DATAname  = ['DATA_d',num2str(d),'_a',num2str(a),'_',STDname];
 eval([DATAname,' = zeros(',num2str(N),',',num2str(nsz),');'])
 for i = 1:nsz
     nid = n(i);
-    [Rquantile,Rmean,d,N,a,alpha,nid,kMax,Rstats] = RCriticalValues(d,N,a,alpha,nid,kMax,isStandardized);
+    [Rquantile,Rmean,Rstats] = RCriticalValues(d,N,a,alpha,nid,kMax,isStandardized);
 
     RSTATname = ['RSTAT_d',num2str(d),'_a',num2str(a),'_n',num2str(nid),'_',STDname];
     QSTATname = ['QSTAT_d',num2str(d),'_a',num2str(a),'_n',num2str(nid),'_',STDname];
@@ -67,7 +67,7 @@ DATAname  = ['DATA_d',num2str(d),'_a',num2str(a),'_',STDname];
 eval([DATAname,' = zeros(',num2str(N),',',num2str(nsz),');'])
 for i = 1:nsz
     nid = n(i);
-    [Rquantile,Rmean,d,N,a,alpha,nid,kMax,Rstats] = RCriticalValues(d,N,a,alpha,nid,kMax,isStandardized);
+    [Rquantile,Rmean,Rstats] = RCriticalValues(d,N,a,alpha,nid,kMax,isStandardized);
 
     RSTATname = ['RSTAT_d',num2str(d),'_a',num2str(a),'_n',num2str(nid),'_',STDname];
     QSTATname = ['QSTAT_d',num2str(d),'_a',num2str(a),'_n',num2str(nid),'_',STDname];
