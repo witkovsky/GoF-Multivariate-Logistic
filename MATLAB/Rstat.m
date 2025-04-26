@@ -1,4 +1,4 @@
-function [R, RINF] = Rstat(data, a, kMax)
+function [R, RINF] = Rstat(data, a, kMax, isStandardized)
 % RSTAT Computes the goodness-of-fit test statistic R_n,a for testing
 % the hypothesis that the data come from a multivariate logistic distribution.
 %
@@ -10,27 +10,42 @@ function [R, RINF] = Rstat(data, a, kMax)
 %   I3 - mixed term (data vs. theory)
 %
 % SYNTAX:
-%   [R, RINF] = Rstat(data, a, kMax)
+%   [R, RINF] = Rstat(data, a, kMax, isStandardized)
 %
 % INPUT:
 %   data   - (n x d) matrix of observations (standardized)
 %   a      - weight function parameter, default is a = 2
 %   kMax   - maximum number of terms in series for I3 (default: 100)
+%   isStandardized - standardization of the data (default: true)
 %
 % OUTPUT:
 %   R      - test statistic value
 %   RINF   - expected value under H0 (used for calibration)
 %
 % EXAMPLES:
-%   %% Example 1: Bivariate case
+%   %% Example 1: Bivariate case (standardized)
+%   rng(1)
 %   n = 100;
 %   mu = [0 0];
 %   Sigma = [1 0.9; 0.9 2];
 %   data = randML(n, mu, Sigma);
 %   a = 2;
-%   R = Rstat(data, a)
+%   kMax = 100;
+%   isStandardized = true;
+%   R = Rstat(data, a, kMax, isStandardized)
 %
-%   %% Example 2: Trivariate case
+%   %% Example 2: Bivariate case (non-standardized)
+%   rng(1)
+%   n = 100;
+%   mu = [0 0];
+%   Sigma = [1 0.9; 0.9 2];
+%   data = randML(n, mu, Sigma);
+%   a = 2;
+%   kMax = 100;
+%   isStandardized = false;
+%   R = Rstat(data, a, kMax, isStandardized)
+%
+%   %% Example 3: Trivariate case (standardized)
 %   n = 100;
 %   mu = [0 0 0];
 %   Sigma = [1 0.9 0.1; 0.9 1 0.5; 0.1 0.5 1];
@@ -38,7 +53,7 @@ function [R, RINF] = Rstat(data, a, kMax)
 %   a = 2;
 %   R = Rstat(data, a)
 %
-%   %% Example 3: 4-dimensional case
+%   %% Example 4: 4-dimensional case (standardized)
 %   n = 100;
 %   mu = [1 2 3 4];
 %   Sigma = [1 0.9 0.1 0;
@@ -50,14 +65,22 @@ function [R, RINF] = Rstat(data, a, kMax)
 %   R = Rstat(data, a)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
-% Ver.: 01-May-2024 16:29:07
+% Ver.: 26-Apr-2025 09:41:42
 
 %% Input validation
-narginchk(1, 3);
+narginchk(1, 4);
 if nargin < 2 || isempty(a), a = 2; end
 if nargin < 3 || isempty(kMax), kMax = 100; end
+if nargin < 4 || isempty(isStandardized), isStandardized = true; end
 
 [n, d] = size(data);
+
+%% Standardize data if isStandardized = true
+if isStandardized
+    muHat = mean(data);
+    SigmaHat = cov(data);
+    data = (sqrtm(inv(SigmaHat)) * (data - muHat)')';
+end
 
 %% Compute integrals
 I1 = Integral1(data, a, d, n);
