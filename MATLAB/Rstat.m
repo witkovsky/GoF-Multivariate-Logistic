@@ -1,17 +1,17 @@
 function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
-% RSTAT Computes the goodness-of-fit test statistic R_n,a for testing
+% RSTAT Computes the goodness-of-fit test statistic R_{n,a} for testing
 %  the hypothesis that the X come from a multivariate logistic distribution,
 %  based on Theorems 2-4 in Popović, Mijanović and Witkovský (2025).  
 %
 % The statistic is based on the analytical formula:
-%     R_n,a = n * (I1 + I2 - I3),
+%     R_{n,a} = n * (I1 + I2 - I3),
 % where:
 %   I1 - empirical integral term
 %   I2 - theoretical term under H0
 %   I3 - mixed term (empirical vs. theory)
 %
 % SYNTAX:
-%   [R, Z] = Rstat(X, a, kMax, isStandardized)
+%   [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %
 % INPUT:
 %   X      - (n x d) matrix of observations (non-standardized)
@@ -20,7 +20,7 @@ function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %   isStandardized - required standardization of the X (default: true)
 %
 % OUTPUT:
-%   R      - test statistic value
+%   Rna    - test statistic value R_{n,a}
 %   Z      - (n x d) matrix of the used (possibly standardized) observations
 %
 % EXAMPLES:
