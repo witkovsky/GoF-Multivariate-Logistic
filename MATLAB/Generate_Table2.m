@@ -20,7 +20,7 @@ function [results, resultsTable] = Generate_Table2(dims, a_vals, method)
 %   resultsTable - table with a values in rows and dimensions in columns
 %
 % EXAMPLE:
-%   [results, tbl] = Generate_Table2();
+%   [results, resultsTable] = Generate_Table2();
 %   disp(tbl);
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
