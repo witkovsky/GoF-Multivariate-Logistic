@@ -70,7 +70,7 @@ function [Rna, Z] = Rstat(X, a, kMax, isStandardized)
 %   disp(Rna)
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
-% Ver.: 26-Apr-2025 09:41:42
+% Ver.: 27-Apr-2025 09:41:42
 
 %% Input validation
 narginchk(1, 4);
@@ -111,25 +111,26 @@ end
 function I1 = Integral1(X, a, d, n)
 % Computes I1 = empirical integral over pairwise distances
 if d == 2
-    const = 2 * pi * a / n^2;
+    const  = 2 * pi * a / n^2;
+    const0 = (2 * pi) / (n * a^2);
     I1 = 0;
     for j = 1:n
-        for k = 1:n
+        for k = (j+1):n
             r = norm(X(j,:) - X(k,:));
             I1 = I1 + 1 / (r^2 + a^2)^(3/2);
         end
     end
-    I1 = const * I1;
+    I1 = const0 + const * 2 * I1;
 else
     const = (2 * pi^(d/2) * gamma(d)) / (n^2 * a^d * gamma(d/2));
     I1 = 0;
     for j = 1:n
-        for k = 1:n
+        for k = (j+1):n
             r2 = norm(X(j,:) - X(k,:))^2;
             I1 = I1 + Hypergeom2F1(d/2, d/2 + 0.5, d/2, -r2 / a^2);
         end
     end
-    I1 = const * I1;
+    I1 = const * (n + 2*I1);
 end
 end
 
