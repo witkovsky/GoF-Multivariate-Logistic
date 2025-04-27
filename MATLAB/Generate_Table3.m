@@ -1,10 +1,11 @@
 function [CriticalValues, CriticalTable] = Generate_Table3(N, dims, sample_sizes, a_vals, kMax, isStandardized)
-% GENERATE_TABLE3 Computes 5% critical values of Rn,a statistics under ML(0,I).
+% GENERATE_TABLE3 Computes 5% critical values of R_{n,a} statistics under ML(0,I).
 % Based on Popović, Mijanović and Witkovský (2025).
 %
 % SYNTAX:
 %   [CriticalValues, CriticalTable] = Generate_Table3()
-%   [CriticalValues, CriticalTable] = Generate_Table3(N, dims, sample_sizes, a_vals, kMax, isStandardized)
+%   [CriticalValues, CriticalTable] = ... 
+%          Generate_Table3(N, dims, sample_sizes, a_vals, kMax, isStandardized)
 %
 % INPUT (optional):
 %   N               - number of Monte Carlo repetitions (default: 1000)
@@ -79,7 +80,7 @@ critical_values = [];
 for id = 1:length(dims)
     for in = 1:length(sample_sizes)
         colname = sprintf('d%d_n%d', dims(id), sample_sizes(in));
-        headers{end+1} = colname; %#ok<AGROW>
+        headers{end+1} = colname; 
 
         col_crit = zeros(length(a_vals), 1);
         for ia = 1:length(a_vals)
@@ -87,7 +88,7 @@ for id = 1:length(dims)
             col_crit(ia) = val;
         end
 
-        critical_values = [critical_values col_crit]; %#ok<AGROW>
+        critical_values = [critical_values col_crit]; 
     end
 end
 
