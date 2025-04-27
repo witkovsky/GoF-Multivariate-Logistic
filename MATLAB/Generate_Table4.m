@@ -1,7 +1,8 @@
 function [EmpiricalQuantiles, EmpiricalTables] = ...
     Generate_Table4(N, dims, a_vals, n_samples, alpha, kMax, Tmax, grid_pts, isStandardized)
-% GENERATE_TABLE4 Computes empirical quantiles of Rn,a statistics for given significance levels.
-% Fast computation: uses Rstat for small n, Rstat_direct for large n.
+% GENERATE_TABLE4 Computes empirical quantiles of R_{n,a} statistics for given
+%   significance levels. Fast computation: uses Rstat for small n, Rstat_direct
+%   for large n. 
 %
 % SYNTAX:
 %   [EmpiricalQuantiles, EmpiricalTables] = Generate_Table4()
@@ -23,6 +24,11 @@ function [EmpiricalQuantiles, EmpiricalTables] = ...
 % OUTPUT:
 %   EmpiricalQuantiles - structure with 3D arrays of empirical quantiles (a x n x alpha)
 %   EmpiricalTables    - structure with tables for each dimension and alpha level
+%
+%
+% EXAMPLE:
+%   [EmpiricalQuantiles, EmpiricalTables] = Generate_Table4();
+%   disp(EmpiricalQuantiles);
 
 % (c) Viktor Witkovsky (witkovsky@gmail.com)
 % Ver.: 27-Apr-2025
