@@ -1,11 +1,11 @@
 function [Rna, Z] = Rstat_direct(X, a, Tmax, grid_pts, isStandardized)
-% RSTAT_DIRECT Computes the goodness-of-fit test statistic R_n,a
+% RSTAT_DIRECT Computes the goodness-of-fit test statistic R_{n,a}
 %   for testing the hypothesis that X comes from a multivariate logistic
 %   distribution. The statistic is based on direct numerical integration
 %   over a grid, see Eq. (8) in Popović, Mijanović and Witkovský (2025). 
 %
 % SYNTAX:
-%   [R, Z] = Rstat_direct(X, a, Tmax, grid_pts, isStandardized)
+%   [Rna, Z] = Rstat_direct(X, a, Tmax, grid_pts, isStandardized)
 %
 % INPUT:
 %   X              - (n x d) matrix of observations (non-standardized)
@@ -15,7 +15,7 @@ function [Rna, Z] = Rstat_direct(X, a, Tmax, grid_pts, isStandardized)
 %   isStandardized - logical, whether to standardize X (default: true)
 %
 % OUTPUT:
-%   R              - test statistic value
+%   Rna            - test statistic value R_{n,a}
 %   Z              - (n x d) matrix of the used (possibly standardized)
 %                    observations 
 %
