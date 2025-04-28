@@ -141,7 +141,8 @@ z = a / (2 * sqrt(3));
 const = (2^(1 - d) * pi^(d/2) * gamma(d + 2)) / (3^(d/2) * gamma(d/2));
 const2 = (2 * pi^(d/2) * gamma(d)) / (a^d * gamma(d/2));
 
-I2 = hurwitzZeta(d + 1, z) - z * hurwitzZeta(d + 2, z);
+%I2 = hurwitzZeta(d + 1, z) - z * hurwitzZeta(d + 2, z);
+I2 = HurwitzZeta(d + 1, z) - z * HurwitzZeta(d + 2, z);
 I2 = const * I2;
 
 RINF = const2 - I2;
