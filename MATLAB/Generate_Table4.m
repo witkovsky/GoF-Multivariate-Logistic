@@ -94,23 +94,26 @@ for id = 1:length(dims)
     end
 
     EmpiricalQuantiles.(sprintf('d%d',d)) = QuantileMatrix;
+    save Table4
 
     % Create tables for each alpha level
     for ialpha = 1:length(alpha)
         rowNames = strcat('a', strrep(string(a_vals), '.', '_'));
         colNames = strcat('n', string(n_samples));
         MatrixData = QuantileMatrix(:,:,ialpha);
-        EmpiricalTables.(sprintf('d%d_alpha%.3f',d,1000*alpha(ialpha))) = ...
+        EmpiricalTables.(sprintf('d%d_alpha%d',d,1000*alpha(ialpha))) = ...
             array2table(MatrixData, 'VariableNames', colNames, 'RowNames', rowNames);
     end
+
+    save Table4
 end
 
 %% Display
 for id = 1:length(dims)
     d = dims(id);
     for ialpha = 1:length(alpha)
-        fprintf('\nResults for dimension d = %d, significance level alpha = %.3f:\n', d, 1000*alpha(ialpha));
-        disp(EmpiricalTables.(sprintf('d%d_alpha%.3f',d,1000*alpha(ialpha))));
+        fprintf('\nResults for dimension d = %d, significance level alpha = %.3f:\n', d, alpha(ialpha));
+        disp(EmpiricalTables.(sprintf('d%d_alpha%d',d,1000*alpha(ialpha))));
     end
 end
 
